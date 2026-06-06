@@ -55,5 +55,7 @@ export async function submitWaitlist(email: string): Promise<WaitlistResult> {
     .select('*', { count: 'exact', head: true })
 
   track('Waitlist Submitted', { email: sanitized })
-  return { success: true, position: count ?? 1240 + Math.floor(Math.random() * 60) }
+  const BASE = 100
+  const position = count && count > 0 ? BASE + count : BASE + 1
+  return { success: true, position }
 }
