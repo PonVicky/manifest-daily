@@ -83,7 +83,20 @@ export default function App() {
   const [state, setState] = useState<State>({ phase: 'idle' })
   const [focused, setFocused] = useState(false)
   const [shaking, setShaking] = useState(false)
+  const [waitlistCount, setWaitlistCount] = useState<number | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // Fetch real waitlist count on load
+  useEffect(() => {
+    import('./lib/supabase').then(({ supabase }) => {
+      supabase
+        .from('waitlist_emails')
+        .select('*', { count: 'exact', head: true })
+        .then(({ count }) => {
+          if (count && count > 0) setWaitlistCount(100 + count)
+        })
+    })
+  }, [])
 
   // Arm entrance animation once the clock is proven live
   useEffect(() => {
@@ -127,10 +140,37 @@ export default function App() {
     <div
       className="fixed inset-0 overflow-hidden"
       style={{
-        background:
-          'radial-gradient(130% 95% at 50% 16%, #FDF8EF 0%, #FBF3E7 30%, #F4EADB 60%, #EAD3B4 100%)',
+        background: '#FBF3E7',
       }}
     >
+      {/* Background image — desktop */}
+      <div
+        className="absolute inset-0 hidden sm:block"
+        style={{
+          backgroundImage: 'url(/bg-desktop.webp)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          zIndex: 0,
+        }}
+      />
+      {/* Background image — mobile */}
+      <div
+        className="absolute inset-0 block sm:hidden"
+        style={{
+          backgroundImage: 'url(/bg-mobile.webp)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          zIndex: 0,
+        }}
+      />
+      {/* Overlay to keep text readable */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 40%, rgba(253,248,239,0.25) 0%, rgba(251,243,231,0.35) 60%, rgba(244,234,219,0.45) 100%)',
+          zIndex: 1,
+        }}
+      />
       {/* Cloud blobs */}
       <div className="absolute pointer-events-none" style={{ inset: '-10%', zIndex: 0 }}>
         <div
@@ -203,6 +243,24 @@ export default function App() {
         className="relative flex flex-col items-center justify-center text-center h-full"
         style={{ zIndex: 5, padding: 'clamp(24px,5vh,64px) 24px', gap: 'clamp(18px,2.4vh,30px)' }}
       >
+        {/* Wordmark */}
+        <div
+          className="rise-in"
+          style={
+            {
+              '--delay': '0s',
+              fontFamily: '"DM Serif Display", serif',
+              fontSize: 'clamp(0.85rem, 1.2vw, 1rem)',
+              fontWeight: 400,
+              color: '#7A6B5D',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+            } as React.CSSProperties
+          }
+        >
+          Manifest Daily
+        </div>
+
         {/* Mascot */}
         <div
           className="rise-in relative grid place-items-center"
@@ -245,8 +303,8 @@ export default function App() {
             } as React.CSSProperties
           }
         >
-          Stop affirming alone.<br />
-          Start <em style={{ fontStyle: 'italic', color: '#4a3b2c' }}>becoming</em>.
+          One calm app.<br />
+          A lifetime of <em style={{ fontStyle: 'italic', color: '#4a3b2c' }}>growth</em>.
         </h1>
 
         {/* Sub-heading */}
@@ -430,7 +488,9 @@ export default function App() {
                 }}
               />
               <span>
-                <strong style={{ color: '#3A3028', fontWeight: 500 }}>1,200+</strong>
+                <strong style={{ color: '#3A3028', fontWeight: 500 }}>
+                  {waitlistCount ? `${waitlistCount.toLocaleString()}+` : '…'}
+                </strong>
                 &nbsp;already waiting.
               </span>
             </div>
