@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { submitWaitlist, validateEmail } from './lib/waitlist'
 import { celebrate } from './lib/confetti'
+import { supabase } from './lib/supabase'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -88,14 +89,12 @@ export default function App() {
 
   // Fetch real waitlist count on load
   useEffect(() => {
-    import('./lib/supabase').then(({ supabase }) => {
-      supabase
-        .from('waitlist_emails')
-        .select('*', { count: 'exact', head: true })
-        .then(({ count }) => {
-          if (count && count > 0) setWaitlistCount(100 + count)
-        })
-    })
+    supabase
+      .from('waitlist_emails')
+      .select('*', { count: 'exact', head: true })
+      .then(({ count }) => {
+        if (count && count > 0) setWaitlistCount(100 + count)
+      })
   }, [])
 
   // Arm entrance animation once the clock is proven live
