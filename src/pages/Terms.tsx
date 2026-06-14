@@ -1,6 +1,6 @@
 export default function Terms() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#FBF3E7', color: '#3A3028' }}>
+    <div className="h-screen overflow-y-auto" style={{ backgroundColor: '#FBF3E7', color: '#3A3028' }}>
       <div className="max-w-2xl mx-auto px-6 py-12 pb-20">
 
         <a

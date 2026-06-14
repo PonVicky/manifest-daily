@@ -89,10 +89,6 @@ function useRoute() {
 }
 
 export default function App() {
-  const route = useRoute();
-  if (route === 'privacy') return <Privacy />;
-  if (route === 'terms') return <Terms />;
-
   const [email, setEmail] = useState('')
   const [state, setState] = useState<State>({ phase: 'idle' })
   const [focused, setFocused] = useState(false)
@@ -147,6 +143,10 @@ export default function App() {
 
   const isLoading = state.phase === 'loading'
   const isSuccess = state.phase === 'success'
+
+  const route = useRoute();
+  if (route === 'privacy') return <Privacy />;
+  if (route === 'terms') return <Terms />;
 
   return (
     <div
