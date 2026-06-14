@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { submitWaitlist, validateEmail } from './lib/waitlist'
 import { celebrate } from './lib/confetti'
 import { supabase } from './lib/supabase'
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -79,7 +81,18 @@ function Spinner() {
 
 // ─── Main App ────────────────────────────────────────────────────────────────
 
+function useRoute() {
+  const path = window.location.pathname;
+  if (path === '/privacy') return 'privacy';
+  if (path === '/terms') return 'terms';
+  return 'home';
+}
+
 export default function App() {
+  const route = useRoute();
+  if (route === 'privacy') return <Privacy />;
+  if (route === 'terms') return <Terms />;
+
   const [email, setEmail] = useState('')
   const [state, setState] = useState<State>({ phase: 'idle' })
   const [focused, setFocused] = useState(false)
