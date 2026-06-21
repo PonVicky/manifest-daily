@@ -4,6 +4,8 @@ import { celebrate } from './lib/confetti'
 import { supabase } from './lib/supabase'
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
+import Support from './pages/Support';
+import Footer from './components/Footer';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -85,6 +87,7 @@ function useRoute() {
   const path = window.location.pathname;
   if (path === '/privacy') return 'privacy';
   if (path === '/terms') return 'terms';
+  if (path === '/support') return 'support';
   return 'home';
 }
 
@@ -147,14 +150,11 @@ export default function App() {
   const route = useRoute();
   if (route === 'privacy') return <Privacy />;
   if (route === 'terms') return <Terms />;
+  if (route === 'support') return <Support />;
 
   return (
-    <div
-      className="fixed inset-0 overflow-hidden"
-      style={{
-        background: '#FBF3E7',
-      }}
-    >
+    <div style={{ background: '#FBF3E7' }}>
+      <section className="relative w-full h-screen overflow-hidden">
       {/* Background image — desktop */}
       <div
         className="absolute inset-0 hidden sm:block"
@@ -608,6 +608,10 @@ export default function App() {
         />
         <span style={{ fontWeight: 400 }}>A message to your future self</span>
       </div>
+      </section>
+
+      {/* Site-wide footer — appears below the hero on scroll */}
+      <Footer />
 
       {/* Mobile form reflow */}
       <style>{`

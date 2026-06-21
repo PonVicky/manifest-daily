@@ -1,7 +1,9 @@
+import Footer from '../components/Footer';
+
 export default function Privacy() {
   return (
-    <div className="h-screen overflow-y-auto" style={{ backgroundColor: '#FBF3E7', color: '#3A3028' }}>
-      <div className="max-w-2xl mx-auto px-6 py-12 pb-20">
+    <div className="h-screen overflow-y-auto flex flex-col" style={{ backgroundColor: '#FBF3E7', color: '#3A3028' }}>
+      <div className="flex-1 w-full max-w-2xl mx-auto px-6 py-12 pb-20">
 
         <a
           href="/"
@@ -78,15 +80,17 @@ export default function Privacy() {
           <br />
           Bepel —{' '}
           <a
-            href="mailto:bepeloffical@gmail.com"
+            href="mailto:ponvicky@icloud.com"
             className="underline"
             style={{ color: '#3A3028' }}
           >
-            bepeloffical@gmail.com
+            ponvicky@icloud.com
           </a>
         </Section>
 
       </div>
+
+      <Footer />
     </div>
   );
 }

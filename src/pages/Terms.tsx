@@ -1,7 +1,9 @@
+import Footer from '../components/Footer';
+
 export default function Terms() {
   return (
-    <div className="h-screen overflow-y-auto" style={{ backgroundColor: '#FBF3E7', color: '#3A3028' }}>
-      <div className="max-w-2xl mx-auto px-6 py-12 pb-20">
+    <div className="h-screen overflow-y-auto flex flex-col" style={{ backgroundColor: '#FBF3E7', color: '#3A3028' }}>
+      <div className="flex-1 w-full max-w-2xl mx-auto px-6 py-12 pb-20">
 
         <a
           href="/"
@@ -47,10 +49,10 @@ export default function Terms() {
             ManifestDaily offers optional paid subscriptions and a one-time lifetime purchase:
           </p>
           <ul className="list-disc pl-5 mb-4 space-y-1 text-base" style={{ color: '#3A3028' }}>
-            <li>Weekly — $3.99</li>
-            <li>Monthly — $9.99</li>
-            <li>Annual — $49.99</li>
-            <li>Lifetime — $149.99 (one-time payment)</li>
+            <li>Weekly — $2.99 (3-day free trial)</li>
+            <li>Monthly — $7.99</li>
+            <li>Annual — $39.99 (7-day free trial)</li>
+            <li>Lifetime — $99.99 (one-time payment)</li>
           </ul>
           <p className="text-base leading-relaxed mb-4" style={{ color: '#3A3028' }}>
             Subscriptions are auto-renewable. Payment is charged to your Apple ID account at
@@ -113,15 +115,17 @@ export default function Terms() {
           <br />
           Bepel —{' '}
           <a
-            href="mailto:bepeloffical@gmail.com"
+            href="mailto:ponvicky@icloud.com"
             className="underline"
             style={{ color: '#3A3028' }}
           >
-            bepeloffical@gmail.com
+            ponvicky@icloud.com
           </a>
         </Section>
 
       </div>
+
+      <Footer />
     </div>
   );
 }
